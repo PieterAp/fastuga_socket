@@ -29,6 +29,9 @@ io.on('connection', (socket) => {
         if (user.type == 'EM') {
             socket.join('Manager')
         }
+        if (user.type == 'EC') {
+            socket.join('Chef')
+        }
     })
     socket.on('loggedOut', function (user) {
         socket.leave(user.id)
@@ -39,4 +42,9 @@ io.on('connection', (socket) => {
         socket.in('Manager').except(user.id).emit('updateUser', user)
         socket.in(user.id).emit('updateUser', user)
     })
+
+    socket.on('updateItem', function (item) {
+        socket.in('Chef').emit('updateItem', item)
+    })
+
 })
