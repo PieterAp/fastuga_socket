@@ -60,9 +60,16 @@ io.on('connection', (socket) => {
         socket.in('Delivery').emit('orderReady', item)
     })
 
-    socket.on('blocked', (userID) => {
+    socket.on('blocked', function (userID) {
        socket.in(userID).emit('blocked', 'Your account was locked')
     })
+  
+    socket.on('notifyOrderDelivery', function (userID,order) {          
+        socket.in('Chef').emit('notifyOrderDelivery', "Order with ticket #" + order.ticket_number + " is now beeing delivered")
+        socket.in('Manager').emit('notifyOrderDelivery', "Order with ticket #" + order.ticket_number + " is now beeing delivered by ")
+        socket.in('Delivery').emit('notifyOrderDelivery', "Order with ticket #" + order.ticket_number + " is now beeing delivered by ")
+        socket.in(userID).emit('notifyOrderDelivery', 'Your order is beeing delivered')
+     })
 
     socket.on('deleteUser', (userID) => {
         socket.in(userID).emit('deleteUser', 'Your account was deleted')
