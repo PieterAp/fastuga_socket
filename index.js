@@ -23,6 +23,9 @@ io.on('connection', (socket) => {
         if (user.type == 'EC') {
             socket.join('Chef')
         }
+        if (user.type == 'ED') {
+            socket.join('Delivery')
+        }
     })
 
     socket.on('loggedOut', function (user) {
@@ -37,10 +40,24 @@ io.on('connection', (socket) => {
 
     socket.on('updateItem', function (item) {
         socket.in('Chef').emit('updateItem', item)
+        socket.in('Manager').emit('updateItem', item)
+        socket.in('Delivery').emit('updateItem', item)
+    })
+
+    socket.on('updateItemReady', function (item) {
+        socket.in('Chef').emit('updateItemReady', item)
+        socket.in('Manager').emit('updateItemReady', item)
+        socket.in('Delivery').emit('updateItemReady', item)
     })
 
     socket.on('newItem', function (item) {
         socket.in('Chef').emit('newItem', item)
+        socket.in('Manager').emit('newItem', item)
+        socket.in('Delivery').emit('newItem', item)
+    })
+
+    socket.on('orderReady', function (item) {        
+        socket.in('Delivery').emit('orderReady', item)
     })
 
     socket.on('blocked', (userID) => {
