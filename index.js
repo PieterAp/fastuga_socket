@@ -1,3 +1,5 @@
+const { disconnect } = require('process')
+
 const httpServer = require('http').createServer()
 const io = require("socket.io")(httpServer, {
     cors: {
@@ -39,6 +41,10 @@ io.on('connection', (socket) => {
 
     socket.on('newItem', function (item) {
         socket.in('Chef').emit('newItem', item)
+    })
+
+    socket.on('blocked', (userID) => {
+       socket.in(userID).emit('blocked', 'Your account was locked')
     })
 
 })
