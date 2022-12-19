@@ -54,4 +54,8 @@ io.on('connection', (socket) => {
         socket.in('Delivery').emit('newItem', item)
     })
 
+    socket.on('orderReady', function (item) {        
+        socket.in('Delivery').emit('orderReady', item)
+    })
+
 })
