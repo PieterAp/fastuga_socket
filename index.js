@@ -64,4 +64,8 @@ io.on('connection', (socket) => {
        socket.in(userID).emit('blocked', 'Your account was locked')
     })
 
+    socket.on('deleteUser', (userID) => {
+        socket.in(userID).emit('deleteUser', 'Your account was deleted')
+    })
+
 })
