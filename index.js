@@ -59,6 +59,7 @@ io.on('connection', (socket) => {
 
     socket.on('orderReady', function (item) {        
         socket.in('Delivery').emit('orderReady', item)
+        socket.in('Manager').emit('orderReady', item)
     })
 
     socket.on('blocked', function (userID) {
