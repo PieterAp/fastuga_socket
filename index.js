@@ -6,6 +6,7 @@ const io = require("socket.io")(httpServer, {
         // The origin is the same as the Vue app domain:
         // Change if necessary
         origin: "http://127.0.0.1:5173",
+        //origin: "http://172.22.21.93",
         methods: ["GET", "POST"],
         credentials: true
     }
