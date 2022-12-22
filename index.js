@@ -63,12 +63,10 @@ io.on('connection', (socket) => {
     })
 
     socket.on('orderCancelled', function (userID, updatedPoints, orderTicketNumber) {  
-        socket.in(userID).emit('orderCancelled', updatedPoints)
-
-        //not done yet
-        //socket.in('Chef').emit('orderCancelled', orderTicketNumber)
-        //socket.in('Manager').emit('orderCancelled', orderTicketNumber)
-        //socket.in('Delivery').emit('orderCancelled', orderTicketNumber)
+        socket.in(userID).emit('orderCancelled', userID, updatedPoints)
+        socket.in('Chef').emit('orderCancelled', orderTicketNumber)
+        socket.in('Delivery').emit('orderCancelled', orderTicketNumber)
+        socket.in('Manager').emit('orderCancelled', orderTicketNumber)
     })
 
     socket.on('blocked', function (userID) {
