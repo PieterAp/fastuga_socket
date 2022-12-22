@@ -57,7 +57,8 @@ io.on('connection', (socket) => {
         socket.in('Delivery').emit('newItem', item)
     })
 
-    socket.on('orderReady', function (item) {        
+    socket.on('orderReady', function (item) { 
+        socket.in('Chef').emit('orderReady', item)       
         socket.in('Delivery').emit('orderReady', item)
         socket.in('Manager').emit('orderReady', item)
     })
