@@ -57,6 +57,11 @@ io.on('connection', (socket) => {
         socket.in('Delivery').emit('newItem', item)
     })
 
+
+    socket.on('newOrder', function (order) { 
+        socket.in('Manager').emit('newOrder', order)
+    })
+
     socket.on('orderReady', function (item) { 
         socket.in('Chef').emit('orderReady', item)       
         socket.in('Delivery').emit('orderReady', item)
